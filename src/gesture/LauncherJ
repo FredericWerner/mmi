@@ -1,0 +1,66 @@
+
+/*  ************** READ ME *************
+ * CONSTELLATION
+ *  Speech and Gesture Light System Control
+ *  
+*	Tested with ASUS Xtion Pro
+*	
+*   Please make sure that:
+*   - Processing 2 is installed
+*   - Simple Open NI is installed
+*	- the camera is connected
+*	to the computer via a USB 2.0 port
+*	- run this program as a Java Applet
+*   
+*   Refer to Constellation Setup Guide
+*   https://docs.google.com/document/d/1HpO8hGLaa7HpF74TBYGDHB-de1lfbYJK24u8smRUuSE
+*
+*------------------------------------------------------
+*[TO DO]
+* - fix the calibration mode to do it several times if needed
+* ------------------------------------------------------
+* 
+* Coder: Stephane GARTI
+* Date: January 2017
+* Organisation: TU Berlin
+*/
+
+package gesture;
+import processing.core.*;
+
+public class Launcher extends PApplet {
+	// serialization (required by java on this class)
+	private static final long serialVersionUID = -397761594665618496L;
+
+	public static void main(String[] args) {
+		PApplet.main("Launcher");
+	}
+	
+	CalibFrame calibWindow;
+	LaserFrame laserWindow;
+	Button buttonCalib, buttonLaser;
+
+	public void setup() {
+		size(640, 480);
+		frameRate(15);
+		buttonCalib = new Button(this, "Start Calibration", width / 2, height / 3, 200, 100);
+		buttonLaser = new Button(this, "Start Light Control", width / 2, 2 * height / 3, 200, 100);
+	}
+
+	public void draw() {
+		background(255);
+		buttonCalib.display();
+		buttonLaser.display();
+	}
+
+	// mouse button clicked
+	public void mousePressed() {
+		if (buttonCalib.mouseIsOver()) {
+			calibWindow = new CalibFrame(0, 0, 640, 480, "Calibration");
+		}
+
+		if (buttonLaser.mouseIsOver()) {
+			laserWindow = new LaserFrame(0, 0, 1024, 768, "Laser Beam");
+		}
+	}
+}
